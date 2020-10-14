@@ -1,0 +1,4 @@
+name: wowauctiontool
+dependencies:
+  http: ^0.12.2
+  http_auth: ^0.3.0

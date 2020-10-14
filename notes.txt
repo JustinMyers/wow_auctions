@@ -1,0 +1,15 @@
+{
+    "id": 208381321,
+    "item": {
+    "id": 159604,
+    "context": 0,
+    "bonus_lists": [4796, 1684],
+    "modifiers": [{ "type": 9, "value": 118 }]
+    },
+    "buyout": 1000000,
+    "quantity": 1,
+    "time_left": "SHORT"
+}
+
+What do all these fields mean?
+
