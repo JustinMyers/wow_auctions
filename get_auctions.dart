@@ -15,7 +15,7 @@ void main() async {
   String connectedRealmsIndex = '/data/wow/connected-realm/index';
   DateTime ts = DateTime.now();
   String timeStampString =
-      '${ts.year}-${ts.month}-${ts.day} ${ts.hour}:${ts.minute}';
+      '${ts.year}-${ts.month.toString().padLeft(2, '0')}-${ts.day.toString().padLeft(2, '0')} ${ts.hour.toString().padLeft(2, '0')}:${ts.minute}';
 
   print('Fetching connected realms...');
   var response = await http.get(
