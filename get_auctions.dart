@@ -13,7 +13,9 @@ void main() async {
   String params = 'locale=${locale}&access_token=${access_token}';
 
   String connectedRealmsIndex = '/data/wow/connected-realm/index';
-  String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
+  DateTime ts = DateTime.now();
+  String timeStampString =
+      '${ts.year}-${ts.month}-${ts.day} ${ts.hour}:${ts.minute}';
 
   print('Fetching connected realms...');
   var response = await http.get(
@@ -33,7 +35,7 @@ void main() async {
       var auctionResponse =
           await http.get('${jsonRealm['auctions']['href']}&${params}');
       await new File(
-              'connectedRealms/${jsonRealm['id']}/auctionSnapshots/${timeStamp}.json')
+              'connectedRealms/${jsonRealm['id']}/auctionSnapshots/${timeStampString} (${jsonRealm['id']}).json')
           .writeAsString(auctionResponse.body);
     }
   }
