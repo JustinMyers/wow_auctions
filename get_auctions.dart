@@ -15,7 +15,9 @@ void main() async {
   String connectedRealmsIndex = '/data/wow/connected-realm/index';
   DateTime ts = DateTime.now();
   String timeStampString =
-      '${ts.year}-${ts.month.toString().padLeft(2, '0')}-${ts.day.toString().padLeft(2, '0')} ${ts.hour.toString().padLeft(2, '0')}:${ts.minute}';
+      '${ts.year}-${ts.month.toString().padLeft(2, '0')}-${ts.day.toString().padLeft(2, '0')} ${ts.hour.toString().padLeft(2, '0')}${ts.minute.toString().padLeft(2, '0')}';
+
+  String storage_directory = "/Volumes/LaCie/wow_auctions";
 
   print('Fetching connected realms...');
   var response = await http.get(
@@ -28,14 +30,16 @@ void main() async {
     if (connectedRealmResponse.body.contains("Roleplaying")) {
       var jsonRealm = convert.jsonDecode(connectedRealmResponse.body);
       print('Scanning realm id ${jsonRealm['id']}.');
-      await Directory('connectedRealms/${jsonRealm['id']}/auctionSnapshots')
+      await Directory(
+              '${storage_directory}/connectedRealms/${jsonRealm['id']}/auctionSnapshots')
           .create(recursive: true);
-      await new File('connectedRealms/${jsonRealm['id']}/connected_realm.json')
+      await new File(
+              '${storage_directory}/connectedRealms/${jsonRealm['id']}/connected_realm.json')
           .writeAsString(connectedRealmResponse.body);
       var auctionResponse =
           await http.get('${jsonRealm['auctions']['href']}&${params}');
       await new File(
-              'connectedRealms/${jsonRealm['id']}/auctionSnapshots/${timeStampString} (${jsonRealm['id']}).json')
+              '${storage_directory}/connectedRealms/${jsonRealm['id']}/auctionSnapshots/${timeStampString} (${jsonRealm['id']}).json')
           .writeAsString(auctionResponse.body);
     }
   }
