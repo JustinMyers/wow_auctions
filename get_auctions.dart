@@ -22,6 +22,7 @@ void main() async {
     "."
   ];
 
+  print(timeStampString);
   print('Fetching connected realms...');
   var response = await http.get(
       '${host_name}${connectedRealmsIndex}?namespace=${namespace}\&${params}');
